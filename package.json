@@ -1,0 +1,8 @@
+{
+  "name": "authorization-simple",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Davidsonaleks/authorization-simple.git",
+  "author": "davidson <davidovich0895@gmail.com>",
+  "license": "MIT"
+}
