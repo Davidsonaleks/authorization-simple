@@ -1,2 +1,2 @@
-// import "./api/api-server.ts"
-import "./web/server.ts"
+import "./api/api-server.ts"
+import "./web/web-server.ts"

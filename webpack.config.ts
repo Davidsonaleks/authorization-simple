@@ -6,7 +6,7 @@ require("dotenv").config()
 
 type Configuration = WebpackConfiguration & DevServerConfiguration
 
-const { WDS_PORT } = process.env
+const WDS_PORT = process.env.WDS_PORT || 5001
 const SRC_DIR = join(__dirname, "src")
 const DIST_DIR = join(__dirname, "dist")
 const OUTPUT_PATH = WDS_PORT ? `http://localhost:${WDS_PORT}/dist/` : DIST_DIR
@@ -18,7 +18,7 @@ const stats: Configuration["stats"] = {
 }
 
 const config: Configuration = {
-  entry: "./src/web/browser.ts",
+  entry: "./src/web/browser.tsx",
   output: {
     filename: "main.js",
     path: DIST_DIR,
