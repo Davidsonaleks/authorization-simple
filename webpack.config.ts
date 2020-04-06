@@ -18,7 +18,7 @@ const stats: Configuration["stats"] = {
 }
 
 const config: Configuration = {
-  entry: "./src/index.ts",
+  entry: "./src/web/browser.ts",
   output: {
     filename: "main.js",
     path: DIST_DIR,
@@ -63,6 +63,9 @@ const config: Configuration = {
       checkSyntacticErrors: true,
     }),
   ],
+  watchOptions: {
+    ignored: /node_modules/,
+  },
 }
 
 export default config
