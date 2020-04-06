@@ -1,3 +1,3 @@
-const a: number = 2
+const a: number = "ddddd"
 
 console.log(a)
