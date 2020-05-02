@@ -1,7 +1,9 @@
 require("dotenv").config()
+import cors from "cors"
 import express from "express"
 import { connect, ConnectionOptions } from "mongoose"
-import { signupRouter } from "./signup"
+import { authRouter } from "./auth"
+import { testRouter } from "./test"
 
 const API_PORT = process.env.API_PORT || 5002
 const MONGO_URL = process.env.MONGO_URL || ""
@@ -15,7 +17,9 @@ const options: ConnectionOptions = {
 const app = express()
 
 app.use(express.json())
-app.use(signupRouter)
+app.use(cors())
+app.use("/auth", authRouter)
+app.use(testRouter)
 
 const start = async () => {
   try {
@@ -30,7 +34,7 @@ const start = async () => {
       console.log(`🚀 Api has been started on http://localhost:` + API_PORT)
     )
   } catch (e) {
-    console.log("API server error:" + e)
+    console.log("API server error: ", e)
   }
 }
 

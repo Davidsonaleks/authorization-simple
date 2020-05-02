@@ -1,10 +1,14 @@
 require("dotenv").config()
+import cors from "cors"
 import express from "express"
 
 const PORT = process.env.PORT || 5000
 const WDS_PORT = process.env.WDS_PORT || 5001
 
 const app = express()
+
+app.use(express.json())
+app.use(cors())
 
 app.get("/", (_req, res) => {
   res.end(`

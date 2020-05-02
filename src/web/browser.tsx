@@ -1,4 +1,15 @@
-import React from "react"
+import React, { FC } from "react"
 import ReactDOM from "react-dom"
+import { Signin } from "./signin"
+import { Signup } from "./signup"
 
-ReactDOM.render(<h1>Hello, world!</h1>, document.getElementById("app"))
+const App: FC = () => {
+  return (
+    <div>
+      <Signup />
+      <Signin />
+    </div>
+  )
+}
+
+ReactDOM.render(<App />, document.getElementById("app"))
