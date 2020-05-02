@@ -11,7 +11,7 @@ authRouter.post("/signup", async (req, res) => {
   try {
     const { login, password } = req.body
 
-    if (!loginValidator(login) || !passwordValidator(password)) {
+    if (!loginValidator(login) || !passwordValidator(password) || !login || !password) {
       return res.status(400).json({ message: "Некорректные данные" })
     }
 

@@ -16,7 +16,7 @@ const options: ConnectionOptions = {
 
 const app = express()
 
-app.use(express.json())
+app.use(express.json({}))
 app.use(cors())
 app.use("/auth", authRouter)
 app.use(testRouter)
@@ -30,9 +30,7 @@ const start = async () => {
         console.log("Connection to DB Success!")
       }
     })
-    app.listen(API_PORT, () =>
-      console.log(`🚀 Api has been started on http://localhost:` + API_PORT)
-    )
+    app.listen(API_PORT, () => console.log(`🚀 Api has been started on http://localhost:` + API_PORT))
   } catch (e) {
     console.log("API server error: ", e)
   }

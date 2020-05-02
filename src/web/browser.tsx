@@ -1,15 +1,11 @@
 import React, { FC } from "react"
 import ReactDOM from "react-dom"
-import { Signin } from "./signin"
-import { Signup } from "./signup"
+import { BrowserRouter as Router } from "react-router-dom"
+import { useRoutes } from "./routes"
 
 const App: FC = () => {
-  return (
-    <div>
-      <Signup />
-      <Signin />
-    </div>
-  )
+  const routes = useRoutes(false)
+  return <Router>{routes}</Router>
 }
 
 ReactDOM.render(<App />, document.getElementById("app"))

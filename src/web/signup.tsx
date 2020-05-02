@@ -1,4 +1,6 @@
 import React, { FC, useState } from "react"
+import { useFetch } from "./fetch-hook"
+import { SnackBar } from "./snackbar"
 
 type TAuthData = {
   login: string
@@ -7,6 +9,7 @@ type TAuthData = {
 
 export const Signup: FC = () => {
   const [data, setData] = useState<TAuthData>({ login: "", password: "" })
+  const { request, isLoading, isSnackShowing, message } = useFetch()
 
   const dataChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = {
@@ -16,13 +19,9 @@ export const Signup: FC = () => {
     setData(input)
   }
 
-  const login = async () => {
-    const res = await fetch("http://localhost:5002/auth/signup", {
-      headers: { "Content-Type": "application/json;charset=utf-8" },
-      method: "POST",
-      body: JSON.stringify(data),
-    })
-    await res.json()
+  const signup = async () => {
+    await request("http://localhost:5002/auth/signup", "POST", data)
+    // console.log("Message: ", message)
   }
 
   return (
@@ -36,7 +35,10 @@ export const Signup: FC = () => {
         Password
         <input id="password" value={data.password} name="password" onChange={dataChange} />
       </label>
-      <button onClick={login}>Go</button>
+      <button onClick={signup} disabled={isLoading}>
+        Signup
+      </button>
+      <SnackBar show={isSnackShowing} text={message} />
     </div>
   )
 }

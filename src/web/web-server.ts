@@ -10,7 +10,7 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-app.get("/", (_req, res) => {
+app.get("*", (_req, res) => {
   res.end(`
   <!DOCTYPE html>
     <html lang="ru">
