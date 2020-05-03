@@ -18,6 +18,9 @@ const stats: Configuration["stats"] = {
 }
 
 const config: Configuration = {
+  node: {
+    fs: "empty",
+  },
   entry: "./src/web/browser.tsx",
   output: {
     filename: "main.js",

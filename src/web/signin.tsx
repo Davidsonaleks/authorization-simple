@@ -1,4 +1,5 @@
 import React, { FC, useState } from "react"
+import { useAuth } from "./ctx"
 import { useFetch } from "./fetch-hook"
 import { SnackBar } from "./snackbar"
 
@@ -7,9 +8,15 @@ type TAuthData = {
   password: string
 }
 
+type TLogin = {
+  token: string | null
+  userId: string | null
+}
+
 export const Signin: FC = () => {
   const [data, setData] = useState<TAuthData>({ login: "", password: "" })
   const { request, isLoading, message, isSnackShowing } = useFetch()
+  const { login } = useAuth()
 
   const dataChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = {
@@ -20,7 +27,8 @@ export const Signin: FC = () => {
   }
 
   const signin = async () => {
-    await request("http://localhost:5002/auth/signin", "POST", data)
+    const r: TLogin = await request("http://localhost:5002/auth/signin", "POST", data)
+    r && r.token && login(r.token)
   }
 
   return (

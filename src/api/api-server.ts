@@ -5,7 +5,7 @@ import { connect, ConnectionOptions } from "mongoose"
 import { authRouter } from "./auth"
 import { testRouter } from "./test"
 
-const API_PORT = process.env.API_PORT || 5002
+export const API_PORT = process.env.API_PORT || 5002
 const MONGO_URL = process.env.MONGO_URL || ""
 
 const options: ConnectionOptions = {

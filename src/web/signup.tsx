@@ -21,7 +21,6 @@ export const Signup: FC = () => {
 
   const signup = async () => {
     await request("http://localhost:5002/auth/signup", "POST", data)
-    // console.log("Message: ", message)
   }
 
   return (

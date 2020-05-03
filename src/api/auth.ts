@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt"
 import { Router } from "express"
-import { sign } from "jsonwebtoken"
+import jwtToken from "jsonwebtoken"
 import { loginValidator, passwordValidator } from "../utils/validator"
 import { User } from "./user-schema"
 require("dotenv").config()
@@ -39,6 +39,10 @@ authRouter.post("/signin", async (req, res) => {
   try {
     const { login, password } = req.body
 
+    if (!login || !password) {
+      return res.status(400).json({ message: "Некорректные данные" })
+    }
+
     const user = await User.findOne({ login })
     if (!user) {
       return res.status(400).json({ message: "Пользователь не найден" })
@@ -52,11 +56,32 @@ authRouter.post("/signin", async (req, res) => {
 
     const secret = process.env.JWT_SECRET || ""
 
-    const token = sign({ id: user.id }, secret)
+    const token = jwtToken.sign({ id: user.id }, secret, { expiresIn: "10h" })
 
     return res.status(201).json({ token, userId: user.id, message: "Вы вошли" })
   } catch (e) {
     console.log(e)
     return res.status(500).json({ message: "Ошибка сервера" })
+  }
+})
+
+authRouter.post("/isAuth", async (req, res) => {
+  try {
+    const { userToken } = req.body
+    const secret = process.env.JWT_SECRET || ""
+    const verify: any = jwtToken.verify(userToken, secret)
+    if (!verify.id) {
+      return res.status(400).json({ message: "Некорректные данные", isAuth: false })
+    }
+
+    const user = await User.findById(verify.id)
+    if (!user) {
+      return res.status(400).json({ message: "Пользователь не найден", isAuth: false })
+    }
+
+    return res.status(201).json({ isAuth: true, message: "Вы вошли" })
+  } catch (e) {
+    console.log(e)
+    return res.status(500).json({ message: "Invalid Token", isAuth: false })
   }
 })
